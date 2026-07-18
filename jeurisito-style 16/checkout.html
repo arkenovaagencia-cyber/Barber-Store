@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar compra — Jeurisito Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Formulario oculto para que Netlify detecte y notifique los pedidos -->
+<form name="pedidos" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="text" name="phone" />
+  <input type="text" name="address" />
+  <input type="text" name="items" />
+  <input type="text" name="total" />
+  <input type="text" name="metodo" />
+</form>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.jpeg" alt="Jeurisito Supply" class="logo-icon">
+      <span class="brand-text"><span class="b-blue">JEURISITO</span> <span class="b-red">SUPPLY</span></span>
+    </a>
+    <a href="index.html#tienda" class="btn btn-ghost btn-sm">← Seguir comprando</a>
+  </div>
+</header>
+
+<section class="section checkout-section">
+  <div class="section-inner checkout-wrap">
+
+    <div class="checkout-summary">
+      <p class="section-eyebrow">Paso final</p>
+      <h1 class="section-title">Tu <span class="accent">pedido</span></h1>
+
+      <ul class="checkout-items" id="checkoutItems"></ul>
+
+      <div class="checkout-total-row">
+        <span>Total</span>
+        <span id="checkoutTotal">RD$0</span>
+      </div>
+      <p class="checkout-usd-note" id="checkoutUsdNote"></p>
+    </div>
+
+    <div class="checkout-pay">
+      <h3>Datos de entrega</h3>
+      <form id="checkoutForm" class="agenda-form checkout-form">
+        <div class="field">
+          <label for="buyerName">Nombre completo</label>
+          <input type="text" id="buyerName" required placeholder="Tu nombre">
+        </div>
+        <div class="field">
+          <label for="buyerPhone">Teléfono / WhatsApp</label>
+          <input type="tel" id="buyerPhone" required placeholder="809-000-0000">
+        </div>
+        <div class="field">
+          <label for="buyerAddress">Dirección de entrega o retiro</label>
+          <input type="text" id="buyerAddress" required placeholder="Sector, calle, referencia">
+        </div>
+      </form>
+
+      <div class="pay-options">
+        <h3>Método de pago</h3>
+        <div id="paypal-button-container"></div>
+        <p class="paypal-missing" id="paypalMissing" style="display:none;">
+          El pago con tarjeta/PayPal aún no está activado en esta tienda.
+        </p>
+
+        <div class="pay-divider"><span>o</span></div>
+
+        <button class="btn btn-primary btn-block wa-pay-btn" id="waPayBtn">
+          Finalizar por WhatsApp
+        </button>
+        <p class="pay-note">Te confirmamos el pedido y coordinamos el pago (efectivo, transferencia o link) directo por WhatsApp.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-bottom">© <span id="year"></span> Jeurisito Supply. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/paypal-config.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

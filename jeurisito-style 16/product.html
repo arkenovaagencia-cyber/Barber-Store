@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Producto — Jeurisito Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.jpeg" alt="Jeurisito Supply" class="logo-icon">
+      <span class="brand-text"><span class="b-blue">JEURISITO</span> <span class="b-red">SUPPLY</span></span>
+    </a>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Ver carrito">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="index.html#tienda" class="btn btn-ghost btn-sm">← Volver a la tienda</a>
+    </div>
+  </div>
+</header>
+
+<section class="section product-section">
+  <div class="section-inner">
+    <p class="breadcrumb"><a href="index.html">Inicio</a> / <a href="index.html#tienda">Tienda</a> / <span id="breadcrumbName">Producto</span></p>
+
+    <div class="product-detail" id="productDetail">
+      <!-- se llena con JS -->
+    </div>
+
+    <div class="razor-divider" aria-hidden="true" style="margin-top:70px;"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 L60,5 L120,32 L180,10 L240,28 L300,8 L360,30 L420,12 L480,26 L540,6 L600,30 L660,10 L720,26 L780,8 L840,30 L900,12 L960,28 L1020,6 L1080,30 L1140,10 L1200,20 L1200,40 L0,40 Z"></path></svg></div>
+
+    <div class="related-block">
+      <h3>También te puede interesar</h3>
+      <div class="products-grid" id="relatedGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Tu carrito</h3>
+    <button id="cartClose" aria-label="Cerrar carrito">✕</button>
+  </div>
+  <ul class="cart-items" id="cartItems"></ul>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">RD$0</span>
+    </div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Finalizar compra</button>
+  </div>
+</aside>
+
+<footer class="footer">
+  <p class="footer-bottom">© <span id="year"></span> Jeurisito Supply. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>

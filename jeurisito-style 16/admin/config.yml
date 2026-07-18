@@ -1,0 +1,34 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Aquí es donde el panel guarda las fotos que subas
+media_folder: "assets/products/uploads"
+public_folder: "/assets/products/uploads"
+
+collections:
+  - name: "products"
+    label: "Productos"
+    files:
+      - file: "content/products.json"
+        label: "Catálogo de la tienda"
+        name: "catalog"
+        fields:
+          - label: "Productos"
+            name: "products"
+            widget: "list"
+            summary: "{{name}} — RD${{price}}"
+            fields:
+              - { label: "ID único (sin espacios, minúsculas, sin tildes)", name: "id", widget: "string", hint: "Ejemplo: pomada-mate. No lo cambies después de creado o se rompe el enlace del producto." }
+              - { label: "Sección de la tienda", name: "tab", widget: "select", options: [ { label: "Para clientes", value: "clientes" }, { label: "Para profesionales", value: "profesionales" } ] }
+              - { label: "Nombre del producto", name: "name", widget: "string" }
+              - { label: "Categoría (ej: Cabello, Barba, Piel, Equipo)", name: "cat", widget: "string" }
+              - { label: "Precio en pesos (RD$)", name: "price", widget: "number", value_type: "int" }
+              - { label: "Descripción corta (una línea)", name: "shortDesc", widget: "string" }
+              - { label: "Descripción larga", name: "longDesc", widget: "text" }
+              - { label: "Foto principal", name: "image", widget: "image", required: false, hint: "Esta es la foto que se ve en la tienda." }
+              - label: "Fotos adicionales (galería)"
+                name: "gallery"
+                widget: "list"
+                required: false
+                field: { label: "Foto", name: "src", widget: "image" }

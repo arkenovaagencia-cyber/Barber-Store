@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeurisito Supply — Tienda</title>
+<meta name="description" content="Cortes con filo y todo lo que necesitas para el cuidado del cabello y la barba. Tienda de productos y equipo de barbería.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
+</head>
+<body>
+
+<div class="blade-loader" id="bladeLoader"><div class="blade-line"></div></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <img src="assets/logo.jpeg" alt="Jeurisito Supply" class="logo-icon">
+      <span class="brand-text"><span class="b-blue">JEURISITO</span> <span class="b-red">SUPPLY</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#estilos">Estilos</a>
+      <a href="#tienda">Tienda</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Ver carrito">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#tienda" class="btn btn-primary btn-sm">Ver tienda</a>
+      <button class="burger" id="burger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-stripes" aria-hidden="true"></div>
+  <div class="hero-grid">
+    <div class="hero-inner">
+      <span class="eyebrow-pill">Barbería &amp; suministros</span>
+      <h1 class="hero-title">FILO,<br>ESTILO<br><span class="outline">Y ACTITUD.</span></h1>
+      <p class="hero-sub">Todo lo que un barbero necesita para trabajar, y todo lo que un cliente necesita para cuidarse — en una sola tienda.</p>
+      <div class="hero-actions">
+        <a href="#tienda" class="btn btn-primary">Ver catálogo</a>
+        <a href="#estilos" class="btn btn-ghost">Ver estilos</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="num">1</span><span class="lbl">barbero, todo el oficio</span></div>
+        <div><span class="num">+40</span><span class="lbl">productos en tienda</span></div>
+        <div><span class="num">100%</span><span class="lbl">filo garantizado</span></div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual-blob"></div>
+      <img src="assets/products/clipper-float.png" alt="" class="hero-visual-img">
+    </div>
+  </div>
+</section>
+
+<div class="razor-divider" aria-hidden="true"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 L60,5 L120,32 L180,10 L240,28 L300,8 L360,30 L420,12 L480,26 L540,6 L600,30 L660,10 L720,26 L780,8 L840,30 L900,12 L960,28 L1020,6 L1080,30 L1140,10 L1200,20 L1200,40 L0,40 Z"></path></svg></div>
+
+<!-- ESTILOS -->
+<section class="section" id="estilos">
+  <div class="section-inner">
+    <p class="section-eyebrow">Catálogo de cortes</p>
+    <h2 class="section-title">Elige tu <span class="accent">estilo</span></h2>
+    <p class="section-sub">Cada corte tiene su propia técnica. Escríbenos para pedirlo en tu próxima visita.</p>
+
+    <div class="styles-grid" id="stylesGrid"></div>
+  </div>
+</section>
+
+<div class="razor-divider flip" aria-hidden="true"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 L60,5 L120,32 L180,10 L240,28 L300,8 L360,30 L420,12 L480,26 L540,6 L600,30 L660,10 L720,26 L780,8 L840,30 L900,12 L960,28 L1020,6 L1080,30 L1140,10 L1200,20 L1200,40 L0,40 Z"></path></svg></div>
+
+<!-- TIENDA -->
+<section class="section section-dark" id="tienda">
+  <div class="section-inner">
+    <p class="section-eyebrow">Suministros de barbería</p>
+    <h2 class="section-title">La <span class="accent">tienda</span></h2>
+    <p class="section-sub">Productos para quien se cuida y equipo para quien trabaja detrás de la silla.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="clientes" role="tab" aria-selected="true">Para clientes</button>
+      <button class="tab" data-tab="profesionales" role="tab" aria-selected="false">Para profesionales</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<div class="razor-divider" aria-hidden="true"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 L60,5 L120,32 L180,10 L240,28 L300,8 L360,30 L420,12 L480,26 L540,6 L600,30 L660,10 L720,26 L780,8 L840,30 L900,12 L960,28 L1020,6 L1080,30 L1140,10 L1200,20 L1200,40 L0,40 Z"></path></svg></div>
+
+<!-- NOSOTROS -->
+<section class="section section-dark" id="nosotros">
+  <div class="section-inner nosotros-inner">
+    <div>
+      <p class="section-eyebrow">El barbero</p>
+      <h2 class="section-title">Una silla.<br>Un <span class="accent">oficio</span>.</h2>
+      <p class="section-sub">Jeurisito Supply es un negocio de un solo barbero: cada cliente pasa por las mismas manos, el mismo cuidado y el mismo estándar. Sin prisa, sin turnos cruzados.</p>
+      <div class="tagcloud">
+        <span>Fade</span><span>Taper</span><span>Diseño</span><span>Barba</span><span>Navaja</span><span>Clásico</span>
+      </div>
+    </div>
+    <div class="quote-card">
+      <p>"No vendo cortes. Vendo el rato en que sales de aquí sintiéndote otra persona."</p>
+      <span>— Jeurisito</span>
+    </div>
+  </div>
+</section>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Tu carrito</h3>
+    <button id="cartClose" aria-label="Cerrar carrito">✕</button>
+  </div>
+  <ul class="cart-items" id="cartItems"></ul>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">RD$0</span>
+    </div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Finalizar compra</button>
+    <p class="cart-note">Pago con PayPal o coordinación directa por WhatsApp.</p>
+  </div>
+</aside>
+
+<a href="#" class="wa-float js-contact-whatsapp" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <span class="wa-float-icon">💬</span>
+</a>
+
+<div class="sticky-cta" id="stickyCta">
+  <span><strong id="stickyCount">0</strong> producto(s) en el carrito — <span id="stickyTotal">RD$0</span></span>
+  <button class="btn btn-primary btn-sm" id="stickyCheckout">Finalizar compra</button>
+</div>
+
+<div class="razor-divider" aria-hidden="true"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 L60,5 L120,32 L180,10 L240,28 L300,8 L360,30 L420,12 L480,26 L540,6 L600,30 L660,10 L720,26 L780,8 L840,30 L900,12 L960,28 L1020,6 L1080,30 L1140,10 L1200,20 L1200,40 L0,40 Z"></path></svg></div>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto">
+  <div class="section-inner contact-inner">
+    <div>
+      <p class="section-eyebrow">Escríbenos</p>
+      <h2 class="section-title">Habla con <span class="accent">nosotros</span></h2>
+      <p class="section-sub">¿Dudas sobre un servicio o un pedido? Escríbenos directo, respondemos rápido.</p>
+    </div>
+    <div class="contact-cards">
+      <a href="#" class="contact-card js-contact-whatsapp" target="_blank" rel="noopener">
+        <span class="contact-icon">💬</span>
+        <span>
+          <strong>WhatsApp</strong>
+          <span class="contact-detail">Escríbenos directo</span>
+        </span>
+      </a>
+      <a href="#" class="contact-card js-contact-email" data-show-text="true">
+        <span class="contact-icon">✉️</span>
+        <span>
+          <strong>Correo</strong>
+          <span class="contact-detail">cargando…</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <span class="brand-text"><span class="b-blue">JEURISITO</span> <span class="b-red">SUPPLY</span></span>
+      <p>Barbería y suministros. Cortes con filo, tienda con todo.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#estilos">Estilos</a>
+      <a href="#tienda">Tienda</a>
+      <a href="#nosotros">Nosotros</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" class="js-contact-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+      <a href="#" class="js-contact-email" aria-label="Correo">✉</a>
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="TikTok">TT</a>
+    </div>
+  </div>
+  <p class="footer-bottom">© <span id="year"></span> Jeurisito Supply. Todos los derechos reservados. · <a href="/admin/">Panel de productos</a></p>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
