@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi cuenta — Jeurisito Supply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.jpeg" alt="Jeurisito Supply" class="logo-icon">
+      <span class="brand-text"><span class="b-blue">JEURISITO</span> <span class="b-red">SUPPLY</span></span>
+    </a>
+    <a href="index.html#tienda" class="btn btn-ghost btn-sm">← Volver a la tienda</a>
+  </div>
+</header>
+
+<section class="section checkout-section">
+  <div class="section-inner" style="max-width:480px;">
+
+    <div id="loggedOutView">
+      <p class="section-eyebrow">Cuenta</p>
+      <h1 class="section-title">Tu <span class="accent">cuenta</span></h1>
+
+      <div class="pay-options" style="margin-top:24px;">
+        <h3 id="formTitle">Crear cuenta</h3>
+        <form id="authForm" class="agenda-form checkout-form">
+          <div class="field" id="nameField">
+            <label for="accName">Nombre completo</label>
+            <input type="text" id="accName" placeholder="Tu nombre">
+          </div>
+          <div class="field">
+            <label for="accEmail">Correo electrónico</label>
+            <input type="email" id="accEmail" required placeholder="tucorreo@ejemplo.com">
+          </div>
+          <div class="field">
+            <label for="accPassword">Contraseña</label>
+            <input type="password" id="accPassword" required placeholder="Mínimo 6 caracteres">
+          </div>
+        </form>
+        <p id="authError" style="color:var(--red-bright); display:none; margin-top:8px;"></p>
+        <p id="authSuccess" style="color:var(--blue-bright); display:none; margin-top:8px;"></p>
+
+        <button class="btn btn-primary btn-block" id="authSubmitBtn" style="margin-top:16px;">Crear cuenta</button>
+
+        <p class="pay-note" style="margin-top:16px; text-align:center;">
+          <span id="toggleText">¿Ya tienes cuenta?</span>
+          <a href="#" id="toggleAuthMode" class="accent">Iniciar sesión</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="loggedInView" style="display:none;">
+      <p class="section-eyebrow">Cuenta</p>
+      <h1 class="section-title">Hola, <span class="accent" id="welcomeName">cliente</span></h1>
+      <div class="pay-options" style="margin-top:24px;">
+        <p>Correo: <strong id="welcomeEmail"></strong></p>
+        <button class="btn btn-ghost btn-block" id="logoutBtn" style="margin-top:20px;">Cerrar sesión</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-bottom">© <span id="year"></span> Jeurisito Supply. Todos los derechos reservados.</p>
+</footer>
+
+<script src="js/supabase-config.js"></script>
+<script src="js/cuenta.js"></script>
+</body>
+</html>

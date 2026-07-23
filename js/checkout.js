@@ -10,6 +10,36 @@ function notifyNetlify(formName, data){
   }).catch(err => console.warn("No se pudo notificar por Netlify Forms:", err));
 }
 
+async function saveOrderToSupabase({ name, phone, address, summary, totalDop, totalUsd, paymentStatus }){
+  try{
+    if(typeof supabaseClient === "undefined") return;
+    let customerId = null;
+    let customerEmail = null;
+    try{
+      const { data } = await supabaseClient.auth.getSession();
+      if(data.session){
+        customerId = data.session.user.id;
+        customerEmail = data.session.user.email;
+      }
+    } catch(e){}
+
+    await supabaseClient.from("orders").insert({
+      customer_id: customerId,
+      customer_name: name,
+      customer_email: customerEmail,
+      customer_phone: phone,
+      customer_address: address,
+      items: summary,
+      total_dop: totalDop,
+      total_usd: totalUsd || null,
+      payment_method: paymentStatus.includes("PayPal") ? "PayPal" : "Contra entrega",
+      payment_status: paymentStatus
+    });
+  } catch(err){
+    console.warn("No se pudo guardar el pedido en Supabase:", err);
+  }
+}
+
 let cart = [];
 try{
   const stored = localStorage.getItem("jeurisito_cart");
@@ -62,6 +92,12 @@ document.getElementById("waPayBtn").addEventListener("click", () => {
     total: `RD$${total.toLocaleString("es-DO")}`,
     metodo: "WhatsApp (efectivo/transferencia)"
   });
+
+  saveOrderToSupabase({
+    name, phone, address, summary,
+    totalDop: total,
+    paymentStatus: "Pago contra entrega"
+  });
 });
 
 // ===== PayPal =====
@@ -100,6 +136,13 @@ function initPayPal(){
             name, phone, address, items: summary,
             total: `US$${usdAmount} (RD$${total.toLocaleString("es-DO")})`,
             metodo: "PayPal — PAGADO ✔"
+          });
+
+          saveOrderToSupabase({
+            name, phone, address, summary,
+            totalDop: total,
+            totalUsd: usdAmount,
+            paymentStatus: "Pagado con PayPal"
           });
 
           localStorage.removeItem("jeurisito_cart");

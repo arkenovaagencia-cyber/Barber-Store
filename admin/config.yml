@@ -1,7 +1,8 @@
 backend:
-      name: github
-      repo: arkenovaagencia-cyber/Barber-Store
-      branch: main
+  name: github
+  repo: arkenovaagencia-cyber/Barber-Store
+  branch: main
+
 # Aquí es donde el panel guarda las fotos que subas
 media_folder: "assets/products/uploads"
 public_folder: "/assets/products/uploads"
