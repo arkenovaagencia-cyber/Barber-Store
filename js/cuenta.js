@@ -57,6 +57,36 @@ async function showLoggedIn(user){
     if(profile && profile.full_name) displayName = profile.full_name;
   } catch(e){}
   document.getElementById("welcomeName").textContent = displayName;
+
+  loadMyOrders(user.id);
+}
+
+async function loadMyOrders(userId){
+  const list = document.getElementById("myOrdersList");
+  const { data: orders, error } = await supabaseClient
+    .from("orders").select("*").eq("customer_id", userId).order("created_at", { ascending: false });
+
+  if(error){
+    list.innerHTML = `<p>No se pudieron cargar tus pedidos.</p>`;
+    return;
+  }
+  if(!orders || orders.length === 0){
+    list.innerHTML = `<p style="color:var(--bone-dim);">Todavía no has hecho ningún pedido.</p>`;
+    return;
+  }
+
+  list.innerHTML = orders.map(o => {
+    const fecha = new Date(o.created_at).toLocaleDateString("es-DO", { dateStyle: "medium" });
+    return `
+      <div class="my-order">
+        <div class="my-order-top">
+          <strong>${o.items}</strong>
+          <span class="my-order-status">${o.payment_status}</span>
+        </div>
+        <div class="my-order-meta">${fecha} · RD$${Number(o.total_dop).toLocaleString("es-DO")}</div>
+      </div>
+    `;
+  }).join("");
 }
 
 authSubmitBtn.addEventListener("click", async (e) => {

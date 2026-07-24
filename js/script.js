@@ -143,6 +143,7 @@ function renderCart(){
 
   try{ localStorage.setItem("jeurisito_cart", JSON.stringify(cart)); }
   catch(e){ /* almacenamiento no disponible */ }
+  if(typeof cartSyncToServer === "function") cartSyncToServer(cart);
 
   // Sticky checkout bar
   const sticky = document.getElementById("stickyCta");
@@ -216,6 +217,13 @@ try{
 renderStyles();
 renderCart();
 PRODUCTS_READY.then(() => renderProducts());
+
+if(typeof cartSyncOnLoad === "function"){
+  cartSyncOnLoad((serverItems) => {
+    cart = serverItems;
+    renderCart();
+  });
+}
 
 // Contacto: correo y WhatsApp
 document.querySelectorAll(".js-contact-email").forEach(el => {

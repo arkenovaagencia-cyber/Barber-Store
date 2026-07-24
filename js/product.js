@@ -9,7 +9,15 @@ try{
 function saveCart(){
   try{ localStorage.setItem("jeurisito_cart", JSON.stringify(cart)); }
   catch(e){ /* no disponible */ }
+  if(typeof cartSyncToServer === "function") cartSyncToServer(cart);
   renderCartUI();
+}
+
+if(typeof cartSyncOnLoad === "function"){
+  cartSyncOnLoad((serverItems) => {
+    cart = serverItems;
+    renderCartUI();
+  });
 }
 function addToCart(product, qty){
   const existing = cart.find(i => i.id === product.id);

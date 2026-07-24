@@ -2,6 +2,8 @@ const loginView = document.getElementById("loginView");
 const dashboardView = document.getElementById("dashboardView");
 const panelError = document.getElementById("panelError");
 
+const CIRC = 326.7; // 2 * PI * 52
+
 function showLoginError(msg){
   panelError.textContent = msg;
   panelError.style.display = "block";
@@ -45,16 +47,22 @@ document.getElementById("logoutPanelBtn").addEventListener("click", async () => 
   location.reload();
 });
 
-// ===== Tabs =====
-document.querySelectorAll(".panel-tab").forEach(tab => {
+document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".panel-tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
     const target = tab.dataset.tab;
     document.getElementById("tabPedidos").style.display = target === "pedidos" ? "block" : "none";
     document.getElementById("tabClientes").style.display = target === "clientes" ? "block" : "none";
   });
 });
+
+function animateRing(elId, value, max){
+  const el = document.getElementById(elId);
+  const ratio = max > 0 ? Math.min(value / max, 1) : 0;
+  const offset = CIRC - (ratio * CIRC * 0.82); // deja un pequeño hueco visual
+  requestAnimationFrame(() => { el.style.strokeDashoffset = offset; });
+}
 
 async function loadDashboard(){
   loginView.style.display = "none";
@@ -76,29 +84,28 @@ async function loadOrders(){
   }
 
   document.getElementById("statOrders").textContent = orders.length;
+  animateRing("fillOrders", orders.length, Math.max(orders.length, 10));
 
   if(orders.length === 0){
     list.innerHTML = `<p>Todavía no hay pedidos.</p>`;
     return;
   }
 
-  list.innerHTML = orders.map(o => {
+  list.innerHTML = orders.map((o, i) => {
     const fecha = new Date(o.created_at).toLocaleString("es-DO", { dateStyle: "medium", timeStyle: "short" });
-    const isEntrega = o.payment_status === "Pago contra entrega";
+    const isPaid = o.payment_status === "Pagado con PayPal";
+    const num = String(orders.length - i).padStart(4, "0");
     return `
-      <div class="order-row" onclick="this.classList.toggle('open')">
-        <div class="order-row-top">
-          <strong>${o.customer_name}</strong>
-          <span class="order-status ${isEntrega ? "entrega" : ""}">${o.payment_status}</span>
+      <div class="order">
+        <div>
+          <div class="order-id">#${num}</div>
+          <div class="order-name">${o.customer_name.toUpperCase()}</div>
+          <div class="order-meta">${fecha} · RD$${Number(o.total_dop).toLocaleString("es-DO")}</div>
+          <div class="order-meta" style="margin-top:6px;">
+            ${o.items} — Tel: ${o.customer_phone} — ${o.customer_address}
+          </div>
         </div>
-        <div style="font-size:0.85rem; color:var(--bone-dim); margin-top:4px;">${fecha} · RD$${Number(o.total_dop).toLocaleString("es-DO")}</div>
-        <div class="order-details">
-          <div><strong>Productos:</strong> ${o.items}</div>
-          <div><strong>Correo:</strong> ${o.customer_email || "—"}</div>
-          <div><strong>Teléfono:</strong> ${o.customer_phone}</div>
-          <div><strong>Dirección:</strong> ${o.customer_address}</div>
-          <div><strong>Total:</strong> RD$${Number(o.total_dop).toLocaleString("es-DO")} ${o.total_usd ? `(US$${o.total_usd})` : ""}</div>
-        </div>
+        <div class="badge ${isPaid ? "paid" : ""}">${o.payment_status.toUpperCase()}</div>
       </div>
     `;
   }).join("");
@@ -116,6 +123,7 @@ async function loadCustomers(){
   }
 
   document.getElementById("statCustomers").textContent = customers.length;
+  animateRing("fillCustomers", customers.length, Math.max(customers.length, 10));
 
   if(customers.length === 0){
     list.innerHTML = `<p>Todavía no hay clientes registrados.</p>`;
@@ -127,7 +135,7 @@ async function loadCustomers(){
     return `
       <div class="customer-row">
         <span>${c.full_name || "Sin nombre"}</span>
-        <span style="color:var(--bone-dim); font-size:0.85rem;">${fecha}</span>
+        <span style="color:var(--text-dim);">${fecha}</span>
       </div>
     `;
   }).join("");
@@ -138,6 +146,7 @@ async function loadStockRequestsCount(){
     .from("stock_notifications").select("*", { count: "exact", head: true });
   if(!error){
     document.getElementById("statStockRequests").textContent = count || 0;
+    animateRing("fillStock", count || 0, Math.max(count || 0, 10));
   }
 }
 

@@ -8,6 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .my-order{ border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; margin-bottom:10px; background:var(--steel); }
+  .my-order-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+  .my-order-status{ font-family:var(--mono); font-size:0.7rem; padding:3px 10px; border-radius:100px; background:var(--blue-light); color:#fff; }
+  .my-order-meta{ font-size:0.82rem; color:var(--bone-dim); margin-top:4px; }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -63,6 +69,11 @@
       <div class="pay-options" style="margin-top:24px;">
         <p>Correo: <strong id="welcomeEmail"></strong></p>
         <button class="btn btn-ghost btn-block" id="logoutBtn" style="margin-top:20px;">Cerrar sesión</button>
+      </div>
+
+      <div style="margin-top:32px;">
+        <h3>Mis pedidos</h3>
+        <div id="myOrdersList" style="margin-top:14px;">Cargando tus pedidos...</div>
       </div>
     </div>
 
